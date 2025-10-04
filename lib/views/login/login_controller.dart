@@ -7,27 +7,7 @@ import '../homePage/home_page.dart';
 class LoginController extends GetxController {
   var isLoading = false.obs;
 
-  // // Token save করার function
-  // Future<void> saveToken(String token) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('user_token', token);
-  //   print("Token saved: $token");
-  // }
-  //
-  // // // Token load করার function
-  // Future<String?> getToken() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   return prefs.getString('user_token');
-  // }
-  //
-  // // Token remove (logout) function
-  // Future<void> removeToken() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.remove('user_token');
-  //   print("Token removed");
-  // }
-
-  // Login function
+  // 🔹 Login function
   Future<void> loginUser({
     required String email,
     required String password,
@@ -46,13 +26,22 @@ class LoginController extends GetxController {
       );
 
       final data = jsonDecode(response.body);
+      print("🔍 Login response: $data");
 
       if (response.statusCode == 200 && data["status"] == true) {
-        // // ✅ Save token
-        // String token = data["token"]; // API থেকে token নাও
-        // await saveToken(token);
+        final token = data["token"] ?? data["access_token"];
+
+        if (token != null) {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('user_token', token);
+          print("✅ Token saved: $token");
+        } else {
+          print("⚠️ Token not found in response");
+        }
 
         Get.snackbar("Success", "Login successful!");
+
+        // 🏠 Home Page এ যাও
         Get.offAll(() => HomePage());
       } else {
         Get.snackbar("Error", data["message"] ?? "Login failed");

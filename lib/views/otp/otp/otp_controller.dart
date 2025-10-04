@@ -13,6 +13,7 @@ class OtpController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("auth_token", token);
      print("✅ Token Saved: $token");
+
   }
 
 
@@ -27,7 +28,8 @@ class OtpController extends GetxController {
         body: {"email": email, "otp": otp},
       );
 
-      if (response.statusCode == 200) {
+
+    if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         print(response.body);
 
@@ -36,9 +38,9 @@ class OtpController extends GetxController {
         if (data["status"] == true) {
           // ✅ Token Extract
           Get.snackbar("Success", data["message"] ?? "OTP Verified ");
-          Get.toNamed(AppRoutes.LoginA);
+          Get.toNamed(AppRoutes.home);
 
-
+          // token save
           String? token = data["token"];
 
           if (token != null) {

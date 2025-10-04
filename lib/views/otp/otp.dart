@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../custom_widgets/custom_otp.dart';
 import 'otp/otp_controller.dart';
 
