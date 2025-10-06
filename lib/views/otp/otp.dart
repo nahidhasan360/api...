@@ -12,6 +12,13 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Start timer when screen loads for the first time
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (otpController.timer.value == 0) {
+        otpController.startResendTimer();
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(title: const Text("Email OTP Verification")),
       body: Padding(
@@ -85,9 +92,12 @@ class OtpScreen extends StatelessWidget {
                   return GestureDetector(
                     onTap: otpController.resendAvailable.value
                         ? () {
+                      print("🔄 Resend OTP clicked");
                       otpController.resendOtp(email);
                     }
-                        : null,
+                        : () {
+                      print("⏳ Please wait ${otpController.timer.value}s");
+                    },
                     child: Text(
                       otpController.resendAvailable.value
                           ? "Resend OTP"

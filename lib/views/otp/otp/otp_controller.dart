@@ -84,6 +84,8 @@ class OtpController extends GetxController {
   Future<void> resendOtp(String email) async {
     if (!resendAvailable.value) return;
 
+    startResendTimer(); // Start timer immediately when button is clicked
+
     try {
       isLoading.value = true;
 
@@ -97,8 +99,8 @@ class OtpController extends GetxController {
       print("📨 Resend OTP Response: ${response.body}");
 
       if (response.statusCode == 200) {
+        print("✅ OTP resent successfully");
         Get.snackbar("Success", data["message"] ?? "OTP resent successfully!");
-        startResendTimer(); // Start countdown after successful resend
       } else {
         Get.snackbar("Error", data["message"] ?? "Failed to resend OTP");
       }
