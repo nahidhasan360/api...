@@ -19,6 +19,8 @@ class OtpScreen extends StatelessWidget {
       }
     });
 
+
+
     return Scaffold(
       appBar: AppBar(title: const Text("Email OTP Verification")),
       body: Padding(
@@ -49,36 +51,40 @@ class OtpScreen extends StatelessWidget {
             const SizedBox(height: 30),
 
             // Verify OTP Button
-            Obx(() => otpController.isLoading.value
-                ? const CircularProgressIndicator()
-                : SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (otpTextController.text.trim().length == 6) {
-                    otpController.verifyOtp(
-                      email,
-                      otpTextController.text.trim(),
-                    );
-                  } else {
-                    Get.snackbar(
-                      "Invalid OTP",
-                      "Please enter a 6-digit OTP",
-                      snackPosition: SnackPosition.BOTTOM,
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                ),
-                child: const Text(
-                  "Verify OTP",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            )),
+            Obx(
+              () => otpController.isLoading.value
+                  ? const CircularProgressIndicator()
+                  : SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (otpTextController.text.trim().length == 6) {
+                            otpController.verifyOtp(
+                              email,
+                              otpTextController.text.trim(),
+                            );
+                          } else {
+                            Get.snackbar(
+                              "Invalid OTP",
+                              "Please enter a 6-digit OTP",
+                              snackPosition: SnackPosition.BOTTOM,
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                        ),
+                        child: const Text(
+                          "Verify OTP",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+            ),
 
             const SizedBox(height: 30),
+
+
 
             // Resend OTP Section
             Row(
@@ -92,12 +98,14 @@ class OtpScreen extends StatelessWidget {
                   return GestureDetector(
                     onTap: otpController.resendAvailable.value
                         ? () {
-                      print("🔄 Resend OTP clicked");
-                      otpController.resendOtp(email);
-                    }
+                            // print("🔄 Resend OTP clicked");
+                            otpController.resendOtp(email);
+                          }
                         : () {
-                      print("⏳ Please wait ${otpController.timer.value}s");
-                    },
+                            print(
+                              "⏳ Please wait ${otpController.timer.value}s",
+                            );
+                          },
                     child: Text(
                       otpController.resendAvailable.value
                           ? "Resend OTP"

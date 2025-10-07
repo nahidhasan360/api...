@@ -11,12 +11,13 @@ class OtpController extends GetxController {
   var timer = 0.obs;
 
   Timer? _resendTimer; // Store timer reference to cancel it properly
-
   @override
   void onClose() {
     _resendTimer?.cancel(); // Clean up timer when controller is disposed
     super.onClose();
   }
+
+
 
   // Function to start the resend timer
   void startResendTimer() {
@@ -35,12 +36,23 @@ class OtpController extends GetxController {
     });
   }
 
+
+
+
+
+
   // Save token to SharedPreferences
   Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("auth_token", token);
     print("✅ Token Saved: $token");
   }
+
+
+
+
+
+
 
   // API to verify OTP
   Future<void> verifyOtp(String email, String otp) async {
@@ -79,6 +91,11 @@ class OtpController extends GetxController {
       isLoading.value = false;
     }
   }
+
+
+
+
+
 
   // API to resend OTP
   Future<void> resendOtp(String email) async {

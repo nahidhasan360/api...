@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../core/appRoutes.dart';
 import '../../utils/app_colors.dart';
 import '../signup/register.dart';
 import 'login_controller.dart';
@@ -71,6 +72,9 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Register button
+
+
+
               GestureDetector(
                 onTap: () {
                   Get.to(() => Register());
@@ -80,6 +84,21 @@ class LoginPage extends StatelessWidget {
                   style: TextStyle(color: Color(0xff000000)),
                 ),
               ),
+
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(AppRoutes.forgotPassword);
+                },
+                child: const Text(
+                  "Forget Password",
+                  style: TextStyle(color: Color(0xff000000)),
+                ),
+              ),
+
+
+              const SizedBox(height: 20),
+
             ],
           ),
         ),

@@ -36,9 +36,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 200),
-
       // ✅ টোকেন থাকলে Home, না থাকলে Login
-      initialRoute: token != null ? AppRoutes.home : AppRoutes.LoginA,
+      initialRoute: token != null ? AppRoutes.home : AppRoutes.login,
 
       // সব Route এখানে থাকবে
       getPages: AppRoutes.routes,
